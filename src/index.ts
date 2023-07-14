@@ -12,7 +12,7 @@ import api from './api';
 
 const environment = getEnvironment();
 
-const basePath = '/contact-channels-messages';
+const basePath = '/nodejs-backend-template';
 
 const server: express.Application = express();
 server.disable('x-powered-by');
