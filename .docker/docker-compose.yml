@@ -1,0 +1,9 @@
+version: '3.2'
+services:
+  node_server:
+    image: 482147869996.dkr.ecr.us-east-1.amazonaws.com/ccs/fe-conversations-api/node:${VERSION}
+    environment:
+      - NODE_ENV=${ENV}
+    ports:
+      - 8080:8080
+    restart: always

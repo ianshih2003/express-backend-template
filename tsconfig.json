@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "target": "es2018",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "sourceMap": false,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es2019"],
+    "paths": {
+      "@shared/*": ["./src/shared/*"],
+      "@config": ["./src/config/index.ts"]
+    }
+  },
+  "exclude": ["**/*.spec.ts"]
+}
