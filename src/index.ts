@@ -1,14 +1,20 @@
 import * as express from 'express';
 import * as cookieParser from 'cookie-parser';
 // TODO FIXME
-//import * as core from '@bff/core';
+import bunyanMiddleware from '/shared/bunyan-middleware/index';
 import { appErrorHandler } from './shared/error-handler';
 import { health, requestLogger } from './middlewares';
 import { getEnvironment } from './shared/env';
 import * as bodyParser from 'body-parser';
 import { logger } from './shared/logger';
 import config from './config';
-import api from './api';
+import { api } from './api';
+import { bffRequestLogger } from './shared/request-logger';
+import { createContinuationContext } from './shared/request-context-continuation';
+import { bffRequestIdentifier } from './shared/request-identifier';
+import { fourOFourMiddleware } from './shared/404';
+import { errorHandlerMiddleware } from './shared/errors';
+import * as listEndpoints from 'express-list-endpoints'
 
 const environment = getEnvironment();
 
@@ -29,24 +35,20 @@ server.get(basePath + '/health(check)?', health());
 server.use(cookieParser());
 server.use(bodyParser.json({ limit: '15mb' })); // <-- IMPORTANT: Support parse attachments base64 encoded files
 server.use(bodyParser.urlencoded({ extended: true }));
-/* FIXME
-server.use(core.bunyanMiddleware(logger));
-server.use(core.bffRequestLogger({ ...config.logger.requestLogger }));
-server.use(core.bffRequestIdentifier());
-server.use(core.BffContextResolverMiddleware());
-server.use(core.createContinuationContext());
-*/
+server.use(bunyanMiddleware(logger));
+server.use(bffRequestLogger({ ...config.logger.requestLogger }));
+server.use(bffRequestIdentifier());
+server.use(createContinuationContext());
 server.use(basePath + '/api', api);
 
-/*FIXME
-server.use(core.fourOFourMiddleware());
+server.use(fourOFourMiddleware());
 server.use(
-  core.errorHandlerMiddleware({
+  errorHandlerMiddleware({
     handleError: appErrorHandler,
   }),
 );
-*/
 
-require('./shared/list-endpoints').listEndpoints(api);
+// FIXME
+// listEndpoints(api)
 
 export { server };
