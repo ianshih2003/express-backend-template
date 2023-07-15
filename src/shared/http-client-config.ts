@@ -10,13 +10,11 @@ export const bffHttpAxiosClientOptions: HttpAxiosClientOptions = {
 };
 
 function responseErrorInterceptor(error: AxiosError) {
-  if (error.response) {
-    const response = error.response;
-    const data = response.data;
-    const message =
-      data && data.message
-        ? response.data.message
-        : 'Unexpected error while calling external service';
+  const response = error.response;
+  if (response) {
+    const data: any = response.data;
+    const messageStr: string = data?.message;
+    const message = messageStr ?? 'Unexpected error while calling external service';
     return Promise.reject(new AppError(message, response.status, true));
   }
   return Promise.reject(error);

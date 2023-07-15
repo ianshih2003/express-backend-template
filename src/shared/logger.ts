@@ -1,4 +1,4 @@
-import { LoggerBuilder } from '@bff/bunyan-logger-builder';
+import { LoggerBuilder } from './bunyan-logger-builder';
 
 import config from '../config';
 

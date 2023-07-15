@@ -14,7 +14,7 @@ export function logErrors<T extends Function>(prefix: string, fn: T) {
   return function () {
     try {
       fn.apply(null, arguments);
-    } catch (e) {
+    } catch (e: any) {
       logger.error(prefix, e);
       newrelic.noticeError(e);
     }

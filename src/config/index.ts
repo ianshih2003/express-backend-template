@@ -1,9 +1,14 @@
 import { getEnvironment } from '../shared/env';
+import { HttpRequestLoggerOptions } from '../shared/request-logger/request-logger-middleware-option.interface';
+import { LogstashConfig } from '../shared/bunyan-logger-builder';
 
 export interface AppConfig {
   logger: {
     console: boolean;
     httpClientConfig: { useLogger: boolean };
+    requestLogger?: HttpRequestLoggerOptions;
+    logstash?: LogstashConfig;
+
   };
   newrelic?: {
     license: string;

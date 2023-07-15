@@ -48,12 +48,18 @@ function getValue(key: ContextKey) {
 }
 
 export class RequestContinuationContext {
+  private context: any;
+
   get tid(): string {
     return getValue(ContextKey.TID);
   }
 
   get meta(): Record<string, string> {
     return getValue(ContextKey.META);
+  }
+
+  get getContext(): any {
+    return this.context;
   }
 
 }
