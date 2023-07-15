@@ -1,12 +1,15 @@
 import * as http from 'http';
 
-import { getEnvironment } from '@shared/env';
-import { logger } from '@shared/logger';
+import { getEnvironment } from '../shared/env';
+import { logger } from '../shared/logger';
 import { server } from '../index';
 
 const env = getEnvironment();
 
+console.log("env",env)
 if (env !== 'local') {
+  console.log("loading nr")
+
   require('newrelic');
 }
 

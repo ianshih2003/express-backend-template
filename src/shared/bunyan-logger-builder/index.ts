@@ -1,4 +1,5 @@
 // TODO: fix config from lib
+import * as Logger from 'bunyan';
 export interface LogstashConfig{
 
 }
@@ -15,6 +16,9 @@ export class LoggerBuilder{
         return this;
     }
     build(): any {
-        return this;
+        const logger = Logger.createLogger({
+            name: this.name 
+        })
+        return logger;
     }
 }

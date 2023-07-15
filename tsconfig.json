@@ -10,6 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es2019"],
+    "resolveJsonModule": true,
     "paths": {
       "@shared/*": ["./src/shared/*"],
       "@config": ["./src/config/index.ts"]

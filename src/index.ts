@@ -1,6 +1,5 @@
 import * as express from 'express';
 import * as cookieParser from 'cookie-parser';
-// TODO FIXME
 import { BunyanMiddleware as bunyanMiddleware } from './shared/bunyan-middleware';
 import { appErrorHandler } from './shared/error-handler';
 import { health, requestLogger } from './middlewares';
@@ -17,8 +16,7 @@ import { errorHandlerMiddleware } from './shared/errors';
 import * as listEndpoints from 'express-list-endpoints'
 
 const environment = getEnvironment();
-
-const basePath = '/nodejs-backend-template';
+const basePath = '/api';
 
 const server: express.Application = express();
 server.disable('x-powered-by');
@@ -39,7 +37,7 @@ server.use(bunyanMiddleware(logger));
 server.use(bffRequestLogger({ ...config.logger.requestLogger }));
 server.use(bffRequestIdentifier());
 server.use(createContinuationContext());
-server.use(basePath + '/api', api);
+server.use(basePath, api);
 
 server.use(fourOFourMiddleware());
 server.use(
