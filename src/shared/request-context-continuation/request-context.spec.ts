@@ -3,11 +3,7 @@ import * as express from 'express';
 import { Request } from 'express';
 
 import { createContinuationContext, requestContext } from './request-context';
-import { BffContextResolverMiddleware } from '../context-resolver';
 import { bffRequestIdentifier } from '../request-identifier';
-import { BFFContextData } from '../context-resolver';
-import { ClientAppNameReader } from './request-meta/sources/app-name';
-import { UserIdResolverInstance } from './request-meta/sources/user-id';
 
 jest.mock('../context-resolver/contexts/context-service');
 
@@ -27,19 +23,17 @@ describe('request context', () => {
   });
 
   app.use(bffRequestIdentifier());
-  app.use(BffContextResolverMiddleware());
   app.use(createContinuationContext());
 
-  app.get('/info/:data', function(req: Request, res) {
+  app.get('/info/:data', (req: Request, res) => {
     const resolutions: Record<string, any> = {
       tid: requestContext.tid,
-      context: (req as any).context as BFFContextData,
       meta: requestContext.meta,
     };
     return res.json(resolutions[req.params.data]);
   });
 
-  app.get('/async', async function(_, res) {
+  app.get('/async', async (_, res) => {
     const result = await asyncCode();
     return res.json({ tid: requestContext.tid, meta: result });
   });
