@@ -12,7 +12,7 @@ export const requestMetadata: IRequestMetadataResolver = function(req) {
   const mapper = new HeaderMapper();
 
   mapper.registerMapper('X-justo-RealIP', [
-    headers['x-ccs-realip'],
+    headers['x-justo-realip'],
     headers['true-client-ip'],
     headers['x-client-ip'],
   ] as string[]);

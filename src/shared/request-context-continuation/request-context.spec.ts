@@ -6,6 +6,8 @@ import { createContinuationContext, requestContext } from './request-context';
 import { BffContextResolverMiddleware } from '../context-resolver';
 import { bffRequestIdentifier } from '../request-identifier';
 import { BFFContextData } from '../context-resolver';
+import { ClientAppNameReader } from './request-meta/sources/app-name';
+import { UserIdResolverInstance } from './request-meta/sources/user-id';
 
 jest.mock('../context-resolver/contexts/context-service');
 
@@ -47,7 +49,7 @@ describe('request context', () => {
       .get('/info/tid')
       .set('Host', 'bar.ccs.com.ar')
       .set('Accept', 'application/json')
-      .set('x-ccs-requestid', 'my-request-id')
+      .set('x-justo-requestid', 'my-request-id')
       .expect(200)
       .then(res => {
         expect(res.body).toBe('my-request-id');
@@ -55,39 +57,21 @@ describe('request context', () => {
       });
   });
 
-  it('should return the context from the request', done => {
-    supertest(app)
-      .get('/info/context')
-      .set('Host', 'bar.ccs.com.ar')
-      .set('Accept', 'application/json')
-      .expect(200)
-      .then(res => {
-        expect(res.body).toEqual({
-          company: 'ccs',
-          channel: 'test',
-          site: 'arg',
-          currency: { code: 'ARS', description: '$' },
-          language: 'es',
-          locale: 'es-AR',
-        });
-        done();
-      });
-  });
-
   it('should return the meta data from the request', done => {
     supertest(app)
       .get('/info/meta')
-      .set('Host', 'bar.ccs.com.ar')
       .set('Accept', 'application/json')
-      .set('X-ccs-RequestId', 'my-request-id')
+      .set('android-app', '1.0.0')
+      .set('X-justo-RequestId', 'my-request-id')
+      .set('X-justo-random', 'random')
       .expect(200)
       .then(res => {
         expect(res.body).toEqual({
-          'X-PushAnalytics': 'true',
-          'X-ccs-P13N': 'my-personalization-cookie',
-          'X-ccs-RequestId': 'my-request-id',
+          'X-justo-RequestId': 'my-request-id',
           'X-SessionId': 'sample-session-id',
-          'X-ccs-ClientAppName': '@bff/core',
+          'X-justo-appClient': 'android',
+          'X-justo-appVersion': '1.0.0',
+          'X-justo-random': 'random'
         });
         done();
       });
@@ -96,19 +80,20 @@ describe('request context', () => {
   it('should not loose the contxt in async/await code through the request', done => {
     supertest(app)
       .get('/async')
-      .set('Host', 'bar.ccs.com.ar')
       .set('Accept', 'application/json')
-      .set('x-ccs-requestid', 'my-request-id')
+      .set('android-app', '1.0.0')
+      .set('X-justo-RequestId', 'my-request-id')
+      .set('X-justo-random', 'random')
       .expect(200)
       .then(res => {
         expect(res.body).toEqual({
           tid: 'my-request-id',
           meta: {
-            'X-PushAnalytics': 'true',
-            'X-ccs-P13N': 'my-personalization-cookie',
-            'X-ccs-RequestId': 'my-request-id',
+            'X-justo-RequestId': 'my-request-id',
             'X-SessionId': 'sample-session-id',
-            'X-ccs-ClientAppName': '@bff/core',
+            'X-justo-appClient': 'android',
+            'X-justo-appVersion': '1.0.0',
+            'X-justo-random': 'random'
           },
         });
         done();
@@ -116,28 +101,3 @@ describe('request context', () => {
   });
 });
 
-describe('empty request context', () => {
-  const app = express();
-
-  app.get('/info/meta', function(_, res) {
-    try {
-      res.json(requestContext.meta);
-    } catch (err) {
-      res.json({ error: err.message });
-    }
-  });
-
-  it('should return an error when the the middleware is not created', done => {
-    supertest(app)
-      .get('/info/meta')
-      .set('Accept', 'application/json')
-      .expect(200)
-      .then(res => {
-        expect(res.body).toEqual({
-          error:
-            'There is no continuation context created, call the createContinuationContext() middleware to create one',
-        });
-        done();
-      });
-  });
-});

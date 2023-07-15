@@ -6,7 +6,6 @@ import { requestMetadata } from './request-meta';
 
 const enum ContextKey {
   TID = 'TID',
-  CONTEXT = 'CONTEXT',
   META = 'META',
 }
 
@@ -22,7 +21,7 @@ export function createContinuationContext() {
     namespace.run(() => {
 
       // TID
-      let requestId = req.headers['X-ccs-RequestId'] || req.id;
+      let requestId = req.headers['X-justo-RequestId'] || req.id;
       if (!requestId) {
         requestId = uuid.v4();
       }
