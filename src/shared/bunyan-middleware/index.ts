@@ -1,1 +1,1 @@
-export { BunyanMiddleware as bunyanMiddleware } from './bunyan-middleware';
+export { BunyanMiddleware } from './bunyan-middleware';

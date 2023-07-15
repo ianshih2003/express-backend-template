@@ -1,5 +1,5 @@
-const pkgUp = require('pkg-up');
 const debug = require('debug')('bff-core:request-meta:headers:app-name');
+import { name } from '../../../../../package.json'
 
 /**
  * Gets application name
@@ -17,13 +17,11 @@ interface IAppNameResolver {
  */
 class AppNameResolver implements IAppNameResolver {
   private name: string | undefined;
-  private packagePath: string | null;
 
   constructor() {
-    this.name = process.env.PACKAGE_NAME;
-    this.packagePath = pkgUp.sync();
+    this.name = process.env.PACKAGE_NAME || name;
 
-    if (!this.name && !this.packagePath) {
+    if (!this.name) {
       debug('Process name not found in process.env.PACKAGE_NAME');
       debug('Could not find the package.json file in the current working directory');
       console.error('@bff/core could not read the app name from the environment.');
@@ -35,12 +33,8 @@ class AppNameResolver implements IAppNameResolver {
       return this.name;
     }
 
-    if (this.packagePath) {
-      debug('Reading app name from ' + this.packagePath);
-      const { name } = require(this.packagePath);
-      debug('App name set to: ' + name);
-      this.name = name;
-    }
+    debug('App name set to: ' + name);
+    this.name = name;
 
     return this.name;
   }

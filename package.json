@@ -24,6 +24,7 @@
     "lowercase-keys": "^3.0.0",
     "method-override": "~3.0.0",
     "newrelic": "10.4.2",
+    "reflect-metadata": "^0.1.13",
     "supertest": "^6.3.3",
     "uuid": "^9.0.0"
   },

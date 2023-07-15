@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 
-import { requestContext } from '../../../request-context-continuation/request-context';
+import { requestContext } from '../../request-context-continuation/request-context';
 
 type ForwardedContextKey =
   | 'company'
@@ -14,13 +14,15 @@ type ForwardedContext = Partial<Record<ForwardedContextKey, string>>;
 
 function getPropertiesFromContinuationContext(): ForwardedContext {
   const properties: ForwardedContext = {};
-  if (requestContext.context) {
-    properties.company = requestContext.context.company;
-    properties.channel = requestContext.context.channel.toUpperCase();
-    properties.site = requestContext.context.site.toUpperCase();
-    properties.language = requestContext.context.language;
-    properties.locale = requestContext.context.locale;
-    properties.currencyCode = requestContext.context.currency.code;
+  const context = requestContext.getContext();
+  if (context) {
+    // TODO: move this to interface
+    properties.company = context.company;
+    properties.channel = context.channel?.toUpperCase();
+    properties.site = context.site?.toUpperCase();
+    properties.language = context.language;
+    properties.locale = context.locale;
+    properties.currencyCode = context.currency?.code;
   }
   return properties;
 }

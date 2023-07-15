@@ -1,5 +1,5 @@
 import * as bunyan from 'bunyan';
-import { AxiosHeaders, AxiosRequestConfig, AxiosResponse, RawAxiosRequestHeaders } from 'axios';
+import { AxiosHeaders, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
 import { requestContext } from '../../request-context-continuation/request-context';
 
 export interface LoggerOptions {
@@ -29,7 +29,7 @@ function getCustomHeadersFromRequest(requestHeaders: AxiosHeaders ): Record<stri
  * Logs the request configuration
  */
 export const requestLoggerInterceptor = (logger: bunyan, loggerOptions?: LoggerOptions) => (
-  request: AxiosRequestConfig,
+  request: InternalAxiosRequestConfig,
 ) => {
   const url = (request.baseURL || '') + (request.url || '');
   const requestMethod = request.method as string;

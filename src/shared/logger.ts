@@ -1,8 +1,9 @@
-import { LoggerBuilder } from '@bff/bunyan-logger-builder';
+import { LoggerBuilder } from '../shared/bunyan-logger-builder';
 
 import config from '../config';
 
-let loggerBuilder = new LoggerBuilder('fe-contact-channels-messages-api');
+// TODO: FIXME get this from config
+let loggerBuilder = new LoggerBuilder('{{template}}');
 
 if (config.logger.console) {
   loggerBuilder = loggerBuilder.addStdoutStream('debug');
