@@ -1,11 +1,10 @@
 import * as supertest from 'supertest';
 import * as express from 'express';
 import { Request } from 'express';
-
 import { createContinuationContext, requestContext } from './request-context';
 import { bffRequestIdentifier } from '../request-identifier';
+import { ClientAppNameReader } from './request-meta/sources/app-name';
 
-jest.mock('../context-resolver/contexts/context-service');
 
 describe('request context', () => {
   const app = express();
@@ -17,7 +16,6 @@ describe('request context', () => {
   app.use((req, _, next) => {
     req.cookies = {
       '_ccs_session_id': 'sample-session-id',
-      '_ccs_p13n': 'my-personalization-cookie',
     };
     next();
   });
@@ -41,7 +39,6 @@ describe('request context', () => {
   it('should return the TID from the request', done => {
     supertest(app)
       .get('/info/tid')
-      .set('Host', 'bar.ccs.com.ar')
       .set('Accept', 'application/json')
       .set('x-justo-requestid', 'my-request-id')
       .expect(200)
@@ -55,17 +52,17 @@ describe('request context', () => {
     supertest(app)
       .get('/info/meta')
       .set('Accept', 'application/json')
-      .set('android-app', '1.0.0')
+      .set('ios-app', '1.0.0')
       .set('X-justo-RequestId', 'my-request-id')
       .set('X-justo-random', 'random')
       .expect(200)
       .then(res => {
         expect(res.body).toEqual({
           'X-justo-RequestId': 'my-request-id',
-          'X-SessionId': 'sample-session-id',
-          'X-justo-appClient': 'android',
+          'X-justo-ClientAppName': ClientAppNameReader.appName,
+          'x-justo-random': 'random',
+          'X-justo-appClient': 'ios',
           'X-justo-appVersion': '1.0.0',
-          'X-justo-random': 'random'
         });
         done();
       });
@@ -84,10 +81,10 @@ describe('request context', () => {
           tid: 'my-request-id',
           meta: {
             'X-justo-RequestId': 'my-request-id',
-            'X-SessionId': 'sample-session-id',
             'X-justo-appClient': 'android',
+            'x-justo-random': 'random',
             'X-justo-appVersion': '1.0.0',
-            'X-justo-random': 'random'
+            'X-justo-ClientAppName': ClientAppNameReader.appName,
           },
         });
         done();

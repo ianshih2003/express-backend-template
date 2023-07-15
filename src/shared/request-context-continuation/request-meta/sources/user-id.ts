@@ -1,6 +1,7 @@
 /**
  * Resolves User ID from available request information
  */
+// tslint:disable-next-line:interface-name
 interface IUserIdResolver {
   getUserId: (user: any) => string | undefined;
 }

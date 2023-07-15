@@ -1,14 +1,15 @@
 import * as express from 'express';
 import { Application } from 'express';
-import { bunyanMiddleware } from '../bunyan-middleware';
+import { BunyanMiddleware } from '../bunyan-middleware';
 import * as supertest from 'supertest';
 import * as bunyan from 'bunyan';
 import { bffRequestLoggerMiddleware } from './request-logger-middleware';
 
+const msg: string = 'msg';
+
 const responseHandler = (req: express.Request, res: express.Response) => {
   res.json({ id: (req as any).id });
 };
-
 
 const ringbuffer = new bunyan.RingBuffer({limit: 100});
 const mockedBunyan: bunyan = bunyan.createLogger({
@@ -28,10 +29,10 @@ const mockedBunyan: bunyan = bunyan.createLogger({
 
 describe('request logger middleware', () => {
 
-  it('should have an start log for a request', function(done) {
+  it('should have an start log for a request', (done) => {
     ringbuffer.records = [];
     const app: Application = express();
-    app.use(bunyanMiddleware(mockedBunyan));
+    app.use(BunyanMiddleware(mockedBunyan));
     app.use(bffRequestLoggerMiddleware());
     app.get('/', responseHandler);
     supertest(app)
@@ -40,15 +41,15 @@ describe('request logger middleware', () => {
       .then(() => {
         expect(ringbuffer.records).toBeDefined();
         expect(ringbuffer.records.length).toBeGreaterThanOrEqual(2);
-        expect(ringbuffer.records[0]['msg']).toBe('[START]')
+        expect(ringbuffer.records[0][msg]).toBe('[START]')
         done();
       });
   });
 
-  it('should take in count configuration', function(done) {
+  it('should take in count configuration', (done) => {
     ringbuffer.records = [];
     const app: Application = express();
-    app.use(bunyanMiddleware(mockedBunyan));
+    app.use(BunyanMiddleware(mockedBunyan));
     app.use(bffRequestLoggerMiddleware({
       messages : {
         beforeMessage: 'b4',
@@ -62,16 +63,16 @@ describe('request logger middleware', () => {
       .then(() => {
         expect(ringbuffer.records).toBeDefined();
         expect(ringbuffer.records.length).toBe(2);
-        expect(ringbuffer.records[0]['msg']).toBe('b4')
-        expect(ringbuffer.records[1]['msg']).toBe('after')
+        expect(ringbuffer.records[0][msg]).toBe('b4')
+        expect(ringbuffer.records[1][msg]).toBe('after')
         done();
       });
   });
 
-  it('should ignore ignored endpoints', function(done) {
+  it('should ignore ignored endpoints', (done) => {
     ringbuffer.records = [];
     const app: Application = express();
-    app.use(bunyanMiddleware(mockedBunyan));
+    app.use(BunyanMiddleware(mockedBunyan));
     app.use(bffRequestLoggerMiddleware({
       excludeRequestUri: ['/health']
     }));
@@ -86,10 +87,10 @@ describe('request logger middleware', () => {
       });
   });
 
-  it('should include/exclude including if its in both', function(done) {
+  it('should include/exclude including if its in both', (done) => {
     ringbuffer.records = [];
     const app: Application = express();
-    app.use(bunyanMiddleware(mockedBunyan));
+    app.use(BunyanMiddleware(mockedBunyan));
     app.use(bffRequestLoggerMiddleware({
       excludeRequestUri: ['/health'],
       includeRequestUri: ['/health'],
@@ -101,15 +102,15 @@ describe('request logger middleware', () => {
       .then(() => {
         expect(ringbuffer.records).toBeDefined();
         expect(ringbuffer.records.length).toBe(2);
-        expect(ringbuffer.records[0]['msg']).toBe('[START]')
+        expect(ringbuffer.records[0][msg]).toBe('[START]')
         done();
       });
   });
 
-  it('should consider starting url of the request', function(done) {
+  it('should consider starting url of the request', (done) => {
     ringbuffer.records = [];
     const app: Application = express();
-    app.use(bunyanMiddleware(mockedBunyan));
+    app.use(BunyanMiddleware(mockedBunyan));
     app.use(bffRequestLoggerMiddleware({
       excludeRequestUri: ['/health'],
     }));
@@ -124,10 +125,10 @@ describe('request logger middleware', () => {
       });
   });
 
-  it('should consider only included url', function(done) {
+  it('should consider only included url', (done) => {
 
     const app: Application = express();
-    app.use(bunyanMiddleware(mockedBunyan));
+    app.use(BunyanMiddleware(mockedBunyan));
     app.use(bffRequestLoggerMiddleware({
       includeRequestUri: ['/health'],
     }));

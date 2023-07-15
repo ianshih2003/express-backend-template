@@ -13,7 +13,7 @@ import { createContinuationContext } from './shared/request-context-continuation
 import { bffRequestIdentifier } from './shared/request-identifier';
 import { fourOFourMiddleware } from './shared/404';
 import { errorHandlerMiddleware } from './shared/errors';
-import * as listEndpoints from 'express-list-endpoints'
+import { listEndpoints } from './shared/list-endpoints'
 
 const environment = getEnvironment();
 const basePath = '/api';
@@ -46,7 +46,6 @@ server.use(
   }),
 );
 
-// FIXME
-// listEndpoints(api)
+listEndpoints(server)
 
 export { server };

@@ -1,5 +1,6 @@
 {
   "preset": "ts-jest",
   "testEnvironment": "node",
-  "testResultsProcessor": "jest-sonar-reporter"
+  "testResultsProcessor": "jest-sonar-reporter",
+  "transformIgnorePatterns": ["node_modules/(?!(lowercase-keys))"]
 }

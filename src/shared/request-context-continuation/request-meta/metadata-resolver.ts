@@ -3,13 +3,16 @@ import { HeaderMapper } from './header-mapper';
 import { ClientAppNameReader } from './sources/app-name';
 import { UserIdResolverInstance } from './sources/user-id';
 
-export const requestMetadata: IRequestMetadataResolver = function(req) {
+export const requestMetadata: IRequestMetadataResolver = (req) => {
   const cookies = req.cookies || {};
   const headers = req.headers || {};
   const appClient = headers['android-app'] ? 'android' : headers['ios-app'] ? 'ios' : 'web';
-  const appVersion = headers['android-app'] ? headers['ios-app'] : 'web';
+  const appVersion = headers['android-app'] ? headers['android-app'] : headers['ios-app'] ? headers['ios-app'] : 'web';
 
+  const authorization: string = 'authorization';
   const mapper = new HeaderMapper();
+
+  mapper.registerMapper('Authorization', headers[authorization]);
 
   mapper.registerMapper('X-justo-RealIP', [
     headers['x-justo-realip'],

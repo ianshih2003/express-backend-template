@@ -9,8 +9,7 @@ const responseHandler = (req: express.Request, res: express.Response) => {
 };
 
 describe('request identifier middleware', () => {
-  // tslint:disable-next-line:only-arrow-functions
-  it('should assign an id for the request', function(done) {
+  it('should assign an id for the request', (done) => {
     const app: Application = express();
     app.use(bffRequestIdentifier());
     app.get('/', responseHandler);
@@ -23,8 +22,7 @@ describe('request identifier middleware', () => {
       });
   });
 
-  // tslint:disable-next-line:only-arrow-functions
-  it('should forward an id for the request', function(done) {
+  it('should forward an id for the request', (done) => {
     const id = v4();
 
     const app: Application = express();
@@ -32,7 +30,7 @@ describe('request identifier middleware', () => {
     app.get('/', responseHandler);
     supertest(app)
       .get('/')
-      .set('X-ccs-Requestid', id)
+      .set('X-justo-Requestid', id)
       .expect(200)
       .then(res => {
         expect(res.body.id).toBe(id);
