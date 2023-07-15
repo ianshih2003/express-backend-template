@@ -50,7 +50,7 @@
     "express-list-endpoints": "^6.0.0",
     "husky": "~8.0.3",
     "jest": "~29.6.1",
-    "jest-sonar-reporter": "~2.0.0",
+    "jest-sonar-reporter": "~b2.0.0",
     "lint-staged": "~13.2.3",
     "prettier": "~3.0.0",
     "standard-version": "~9.5.0",
