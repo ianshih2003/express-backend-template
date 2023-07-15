@@ -1,8 +1,8 @@
 import config from '../config';
 import { logger } from './logger';
-import { HttpAxiosClientOptions } from '@bff/core/lib/utils/http-client/http-client';
-import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { AppError } from '@bff/core';
+import { HttpAxiosClientOptions } from '../shared/http-client/http-client';
+import Axios, { AxiosError, CreateAxiosDefaults } from 'axios';
+import { AppError } from '../shared/errors/index';
 import * as AxiosLogger from 'axios-logger';
 
 export const bffHttpAxiosClientOptions: HttpAxiosClientOptions = {
@@ -22,7 +22,7 @@ function responseErrorInterceptor(error: AxiosError) {
   return Promise.reject(error);
 }
 
-export function createConnector(axiosConfig: AxiosRequestConfig) {
+export function createConnector(axiosConfig: CreateAxiosDefaults) {
   const connector = Axios.create(axiosConfig);
   connector.interceptors.request.use(AxiosLogger.requestLogger);
   connector.interceptors.response.use((conf) => conf, responseErrorInterceptor);
