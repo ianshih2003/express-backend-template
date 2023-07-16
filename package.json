@@ -8,7 +8,7 @@
     "build:watch": "tsc -p tsconfig.json",
     "test": "jest --config jest.config.json --coverage",
     "lint": "eslint src/**/*.ts",
-    "format": "eslint src/**/*.ts --fix",
+    "format": "prettier src/**/*.ts --write .",
     "start": "node build/src/bin/www.js"
   },
   "dependencies": {
