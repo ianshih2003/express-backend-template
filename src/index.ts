@@ -46,6 +46,6 @@ server.use(
   }),
 );
 
-listEndpoints(server)
+listEndpoints(api)
 
 export { server };
