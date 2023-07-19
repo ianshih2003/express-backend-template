@@ -1,19 +1,19 @@
 import * as express from 'express';
 import * as cookieParser from 'cookie-parser';
-import { BunyanMiddleware as bunyanMiddleware } from './shared/bunyan-middleware';
-import { appErrorHandler } from './shared/error-handler';
-import { health, requestLogger } from './middlewares';
-import { getEnvironment } from './shared/env';
+import { BunyanMiddleware as bunyanMiddleware } from '@shared/bunyan-middleware';
+import { appErrorHandler } from '@shared/error-handler';
+import { health, requestLogger } from '@middlewares';
+import { getEnvironment } from '@shared/env';
 import * as bodyParser from 'body-parser';
-import { logger } from './shared/logger';
-import config from './config';
-import api from './api';
-import { bffRequestLogger } from './shared/request-logger';
-import { createContinuationContext } from './shared/request-context-continuation';
-import { bffRequestIdentifier } from './shared/request-identifier';
-import { fourOFourMiddleware } from './shared/404';
-import { errorHandlerMiddleware } from './shared/errors';
-import { listEndpoints } from './shared/list-endpoints'
+import { logger } from '@shared/logger';
+import config from '@config';
+import api from '@api';
+import { bffRequestLogger } from '@shared/request-logger';
+import { createContinuationContext } from '@shared/request-context-continuation';
+import { bffRequestIdentifier } from '@shared/request-identifier';
+import { fourOFourMiddleware } from '@shared/404';
+import { errorHandlerMiddleware } from '@shared/errors';
+import { listEndpoints } from '@shared/list-endpoints'
 
 const environment = getEnvironment();
 const basePath = '/api';
@@ -48,4 +48,4 @@ server.use(
 
 listEndpoints(api)
 
-export { server };
+export default server;

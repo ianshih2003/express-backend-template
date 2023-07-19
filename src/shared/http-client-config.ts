@@ -1,8 +1,8 @@
-import config from '../config';
+import config from '@config';
 import { logger } from './logger';
-import { HttpAxiosClientOptions } from '../shared/http-client/http-client';
+import { HttpAxiosClientOptions } from '@shared/http-client/http-client';
 import Axios, { AxiosError, AxiosRequestConfig, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
-import { AppError } from '../shared/errors/index';
+import { AppError } from '@shared/errors/index';
 import * as AxiosLogger from 'axios-logger';
 
 export const bffHttpAxiosClientOptions: HttpAxiosClientOptions = {

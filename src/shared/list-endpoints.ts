@@ -1,3 +1,4 @@
+/* eslint no-console: "off" */
 import express = require('express');
 
 export function listEndpoints(expressApp: express.Application) {

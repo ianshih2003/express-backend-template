@@ -1,19 +1,31 @@
 {
   "compilerOptions": {
-    "outDir": "./build",
+    "outDir": "build",
     "target": "es2018",
     "module": "commonjs",
     "moduleResolution": "node",
-    "strict": true,
     "sourceMap": false,
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es2019"],
     "resolveJsonModule": true,
+    "baseUrl": "src",
     "paths": {
-      "@shared/*": ["./src/shared/*"],
-      "@config": ["./src/config/index.ts"]
+      "@shared": ["./shared/"],
+      "@shared/*": ["./shared/*"],
+      "@config": ["./config/"],
+      "@config/*": ["./config/*"],
+      "@externalModels/*": ["./external-models/*"],
+      "@externalModels": ["./external-models/"],
+      "@types/*": ["./types/*"],
+      "@types": ["./types/"],
+      "@domain/*": ["./domain/*"],
+      "@domain": ["./domain/"],
+      "@middlewares": ["./middlewares/"],
+      "@middlewares/*": ["./middlewares/*"],
+      "@api": ["./api/"],
+      "@api/*": ["./api/*"]
     }
   },
   "exclude": ["**/*.spec.ts"]

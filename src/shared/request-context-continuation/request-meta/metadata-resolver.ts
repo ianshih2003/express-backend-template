@@ -1,9 +1,9 @@
-import { IRequestMetadataResolver } from './request-metada.interface';
+import { RequestMetadataResolver } from './request-metada.interface';
 import { HeaderMapper } from './header-mapper';
 import { ClientAppNameReader } from './sources/app-name';
 import { UserIdResolverInstance } from './sources/user-id';
 
-export const requestMetadata: IRequestMetadataResolver = (req) => {
+export const requestMetadata: RequestMetadataResolver = (req) => {
   const cookies = req.cookies || {};
   const headers = req.headers || {};
   const appClient = headers['android-app'] ? 'android' : headers['ios-app'] ? 'ios' : 'web';

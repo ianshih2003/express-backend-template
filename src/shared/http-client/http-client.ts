@@ -24,7 +24,7 @@ const httpsAgent = new https.Agent({ keepAlive: true });
  * @param {HttpAxiosClientOptions} options
  */
 export function BffHttpAxiosClient(options?: HttpAxiosClientOptions) {
-  return function(target: any, key: string) {
+  return (target: any, key: string) => {
     let value: AxiosInstance = target[key];
 
     const setter = (newValue: AxiosInstance) => {

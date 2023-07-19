@@ -1,5 +1,5 @@
 import { Request } from 'express';
 
-export interface IRequestMetadataResolver {
+export interface RequestMetadataResolver {
   (req: Request): Record<string, string>;
 }

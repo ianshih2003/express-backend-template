@@ -1,6 +1,7 @@
-import { getEnvironment } from '../shared/env';
-import { HttpRequestLoggerOptions } from '../shared/request-logger/request-logger-middleware-option.interface';
-import { LogstashConfig } from '../shared/bunyan-logger-builder';
+import { getEnvironment } from '@shared/env';
+import { HttpRequestLoggerOptions } from '@shared/request-logger/request-logger-middleware-option.interface';
+import { LogstashConfig } from '@shared/bunyan-logger-builder';
+import { Endpoint } from '@types';
 
 export interface AppConfig {
   logger: {
@@ -12,7 +13,10 @@ export interface AppConfig {
   };
   newrelic?: {
     license: string;
-  };
+  },
+  endpoints: {
+    externalResources: Endpoint;
+  }
 }
 
 export interface SqsConfiguration {

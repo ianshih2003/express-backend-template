@@ -13,7 +13,7 @@ interface IAppNameResolver {
  * Tries to read it from 'npm_package_' env variable
  * if not available it will lookup for the package.json of the application
  *
- * @implements IAppNameResolver
+ * @implements AppNameResolver
  */
 class AppNameResolver implements IAppNameResolver {
   private name: string | undefined;

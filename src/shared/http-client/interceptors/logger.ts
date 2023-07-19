@@ -1,6 +1,6 @@
 import * as bunyan from 'bunyan';
-import { AxiosHeaders, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
-import { requestContext } from '../../request-context-continuation/request-context';
+import { AxiosHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { requestContext } from '@shared/request-context-continuation/request-context';
 
 export interface LoggerOptions {
   logRequestBody?: boolean;

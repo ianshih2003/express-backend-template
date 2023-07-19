@@ -1,6 +1,6 @@
-import { LoggerBuilder } from '../shared/bunyan-logger-builder';
+import { LoggerBuilder } from '@shared/bunyan-logger-builder';
 
-import config from '../config';
+import config from '@config';
 
 // TODO: FIXME get this from config
 let loggerBuilder = new LoggerBuilder('{{template}}');

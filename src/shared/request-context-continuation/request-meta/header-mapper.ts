@@ -1,6 +1,7 @@
 export type IHeaderValue = string | undefined;
 export type IHeaderSource = IHeaderValue | IHeaderValue[];
 
+// tslint:disable-next-line:interface-name
 export interface IHeaderMapper {
   target: string;
   sources: IHeaderSource;
