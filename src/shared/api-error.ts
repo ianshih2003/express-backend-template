@@ -1,7 +1,11 @@
 export class ApiError extends Error {
   public readonly httpStatus: number;
 
-  constructor(public message: string, public readonly stack?: string, httpStatus?: number) {
+  constructor(
+    public message: string,
+    public readonly stack?: string,
+    httpStatus?: number,
+  ) {
     super(message);
     this.name = this.constructor.name;
     this.httpStatus = httpStatus !== undefined ? httpStatus : 500;

@@ -1,7 +1,12 @@
 import config from '@config';
 import { logger } from './logger';
 import { HttpAxiosClientOptions } from '@shared/http-client/http-client';
-import Axios, { AxiosError, AxiosRequestConfig, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
+import Axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  CreateAxiosDefaults,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import { AppError } from '@shared/errors/index';
 import * as AxiosLogger from 'axios-logger';
 
@@ -28,7 +33,6 @@ export function createConnector(axiosConfig: CreateAxiosDefaults) {
   return connector;
 }
 
-
 function requestLoggerWrapper(r: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
-    return AxiosLogger.requestLogger(r as AxiosRequestConfig) as InternalAxiosRequestConfig
+  return AxiosLogger.requestLogger(r as AxiosRequestConfig) as InternalAxiosRequestConfig;
 }

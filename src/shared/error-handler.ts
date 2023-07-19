@@ -8,4 +8,3 @@ import { logger } from './logger';
 export function appErrorHandler(err: Error) {
   logger.error(err);
 }
-

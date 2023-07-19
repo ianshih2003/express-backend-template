@@ -2,9 +2,7 @@ import { URL } from 'url';
 import { AxiosResponse } from 'axios';
 import { HttpRequest, HttpResponse } from './http';
 
-export function axiosResponseConverter<T = any>(
-  axiosResponse: AxiosResponse<T>,
-): HttpResponse<T> {
+export function axiosResponseConverter<T = any>(axiosResponse: AxiosResponse<T>): HttpResponse<T> {
   const { data, status, headers, config } = axiosResponse;
 
   const httpRequest: HttpRequest = {

@@ -6,7 +6,7 @@ export class ResourcesService {
 
   async getResources(): Promise<Resource[]> {
     const { data } = await this.client.getExternalResources();
-    return data.map(resource => new Resource(resource.id, resource.description));
+    return data.map((resource) => new Resource(resource.id, resource.description));
   }
 }
 

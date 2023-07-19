@@ -5,7 +5,6 @@ import { createContinuationContext, requestContext } from './request-context';
 import { bffRequestIdentifier } from '../request-identifier';
 import { ClientAppNameReader } from './request-meta/sources/app-name';
 
-
 describe('request context', () => {
   const app = express();
 
@@ -15,7 +14,7 @@ describe('request context', () => {
 
   app.use((req, _, next) => {
     req.cookies = {
-      '_ccs_session_id': 'sample-session-id',
+      _ccs_session_id: 'sample-session-id',
     };
     next();
   });
@@ -36,19 +35,19 @@ describe('request context', () => {
     return res.json({ tid: requestContext.tid, meta: result });
   });
 
-  it('should return the TID from the request', done => {
+  it('should return the TID from the request', (done) => {
     supertest(app)
       .get('/info/tid')
       .set('Accept', 'application/json')
       .set('x-justo-requestid', 'my-request-id')
       .expect(200)
-      .then(res => {
+      .then((res) => {
         expect(res.body).toBe('my-request-id');
         done();
       });
   });
 
-  it('should return the meta data from the request', done => {
+  it('should return the meta data from the request', (done) => {
     supertest(app)
       .get('/info/meta')
       .set('Accept', 'application/json')
@@ -56,7 +55,7 @@ describe('request context', () => {
       .set('X-justo-RequestId', 'my-request-id')
       .set('X-justo-random', 'random')
       .expect(200)
-      .then(res => {
+      .then((res) => {
         expect(res.body).toEqual({
           'X-justo-RequestId': 'my-request-id',
           'X-justo-ClientAppName': ClientAppNameReader.appName,
@@ -68,7 +67,7 @@ describe('request context', () => {
       });
   });
 
-  it('should not loose the contxt in async/await code through the request', done => {
+  it('should not loose the contxt in async/await code through the request', (done) => {
     supertest(app)
       .get('/async')
       .set('Accept', 'application/json')
@@ -76,7 +75,7 @@ describe('request context', () => {
       .set('X-justo-RequestId', 'my-request-id')
       .set('X-justo-random', 'random')
       .expect(200)
-      .then(res => {
+      .then((res) => {
         expect(res.body).toEqual({
           tid: 'my-request-id',
           meta: {
@@ -91,4 +90,3 @@ describe('request context', () => {
       });
   });
 });
-

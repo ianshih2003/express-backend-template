@@ -15,51 +15,53 @@ export interface LoggerOptions {
  * This method retrieves all those headers that are
  * not grouped inside Axios categories.
  */
-function getCustomHeadersFromRequest(requestHeaders: AxiosHeaders ): Record<string, string> {
-  return Object.keys(requestHeaders).reduce((customHeaders, key) => {
-    if (typeof requestHeaders[key] === 'string') {
-      customHeaders[key] = requestHeaders[key];
-    }
-    return customHeaders;
-  }, {} as Record<string, string>);
+function getCustomHeadersFromRequest(requestHeaders: AxiosHeaders): Record<string, string> {
+  return Object.keys(requestHeaders).reduce(
+    (customHeaders, key) => {
+      if (typeof requestHeaders[key] === 'string') {
+        customHeaders[key] = requestHeaders[key];
+      }
+      return customHeaders;
+    },
+    {} as Record<string, string>,
+  );
 }
 
 /**
  * Axios request interceptor
  * Logs the request configuration
  */
-export const requestLoggerInterceptor = (logger: bunyan, loggerOptions?: LoggerOptions) => (
-  request: InternalAxiosRequestConfig,
-) => {
-  const url = (request.baseURL || '') + (request.url || '');
-  const requestMethod = request.method as string;
-  const commonHeaders = request.headers?.common;
-  let methodHeaders;
-  if (request.headers) {
-    methodHeaders = request.headers[requestMethod];
-  }
-  const customHeaders = getCustomHeadersFromRequest(<AxiosHeaders> request.headers);
+export const requestLoggerInterceptor =
+  (logger: bunyan, loggerOptions?: LoggerOptions) => (request: InternalAxiosRequestConfig) => {
+    const url = (request.baseURL || '') + (request.url || '');
+    const requestMethod = request.method as string;
+    const commonHeaders = request.headers?.common;
+    let methodHeaders;
+    if (request.headers) {
+      methodHeaders = request.headers[requestMethod];
+    }
+    const customHeaders = getCustomHeadersFromRequest(<AxiosHeaders>request.headers);
 
-  const requestPayload: any = {
-    headers: {
-      ...commonHeaders, // common headers and request meta headers
-      ...methodHeaders, // method (get, post, put, ...) headers
-      ...customHeaders, // custom headers added in the request
-    },
+    const requestPayload: any = {
+      headers: {
+        ...commonHeaders, // common headers and request meta headers
+        ...methodHeaders, // method (get, post, put, ...) headers
+        ...customHeaders, // custom headers added in the request
+      },
+    };
+
+    if (loggerOptions && loggerOptions.logRequestBody) {
+      requestPayload.body = request.data;
+    }
+
+    const payload = {
+      request: requestPayload,
+      requestId: requestContext.tid,
+    };
+
+    logger.info(payload, `Making ${requestMethod.toUpperCase()} request to ${url}`);
+    return request;
   };
-
-  if (loggerOptions && loggerOptions.logRequestBody) {
-    requestPayload.body = request.data;
-  }
-
-  const payload = {
-    request: requestPayload,
-    requestId: requestContext.tid,
-  };
-
-  logger.info(payload, `Making ${requestMethod.toUpperCase()} request to ${url}`);
-  return request;
-};
 
 /**
  * Axios Bunyan Response Logger Interceptor
@@ -68,22 +70,21 @@ export const requestLoggerInterceptor = (logger: bunyan, loggerOptions?: LoggerO
  * @param loggerOptions
  * @returns {(config: AxiosRequestConfig) => AxiosRequestConfig}
  */
-export const responseLoggerInterceptor = (logger: bunyan, loggerOptions?: LoggerOptions) => (
-  response: AxiosResponse,
-) => {
-  const responsePayload: any = {
-    status: response.status,
-    headers: response.headers,
-  };
+export const responseLoggerInterceptor =
+  (logger: bunyan, loggerOptions?: LoggerOptions) => (response: AxiosResponse) => {
+    const responsePayload: any = {
+      status: response.status,
+      headers: response.headers,
+    };
 
-  if (loggerOptions && loggerOptions.logResponseBody) {
-    responsePayload.body = response.data;
-  }
+    if (loggerOptions && loggerOptions.logResponseBody) {
+      responsePayload.body = response.data;
+    }
 
-  const payload = {
-    response: responsePayload,
-    requestId: requestContext.tid,
+    const payload = {
+      response: responsePayload,
+      requestId: requestContext.tid,
+    };
+    logger.info(payload, `Receiving response from ${response.config.url}`);
+    return response;
   };
-  logger.info(payload, `Receiving response from ${response.config.url}`);
-  return response;
-};

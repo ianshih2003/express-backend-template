@@ -1,22 +1,13 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
-	"plugins": ["@typescript-eslint"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  "plugins": ["@typescript-eslint"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
   "rules": {
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "no-console": [
-      "error"
-    ]
+    "quotes": ["error", "single"],
+    "no-console": ["error"]
   }
 }

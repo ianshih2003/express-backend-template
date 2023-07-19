@@ -9,14 +9,13 @@ export interface AppConfig {
     httpClientConfig: { useLogger: boolean };
     requestLogger?: HttpRequestLoggerOptions;
     logstash?: LogstashConfig;
-
   };
   newrelic?: {
     license: string;
-  },
+  };
   endpoints: {
     externalResources: Endpoint;
-  }
+  };
 }
 
 export interface SqsConfiguration {

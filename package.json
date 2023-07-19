@@ -7,7 +7,7 @@
     "build": "tsc -p tsconfig.json && tsconfig-replace-paths -p tsconfig.json",
     "build:watch": "tsc -p tsconfig.json && tsconfig-replace-paths -p tsconfig.json",
     "test": "jest --config jest.config.json --coverage",
-    "lint": "prettier --plugin-search-dir . --check . && eslint .",
+    "lint": "prettier --plugin-search-dir . --check . && eslint ./src/**/*.ts",
     "format": "prettier src/**/*.ts --write .",
     "start": "node build/src/bin/www.js"
   },

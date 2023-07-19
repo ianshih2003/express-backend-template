@@ -11,24 +11,23 @@ const responseHandler = (req: express.Request, res: express.Response) => {
   res.json({ id: (req as any).id });
 };
 
-const ringbuffer = new bunyan.RingBuffer({limit: 100});
+const ringbuffer = new bunyan.RingBuffer({ limit: 100 });
 const mockedBunyan: bunyan = bunyan.createLogger({
   name: 'testing',
-  streams : [
+  streams: [
     {
       level: 'info',
-      stream: process.stdout
+      stream: process.stdout,
     },
     {
       level: 'info',
-      type: 'raw',    // use 'raw' to get raw log record objects
-      stream: ringbuffer
+      type: 'raw', // use 'raw' to get raw log record objects
+      stream: ringbuffer,
     },
-  ]
+  ],
 });
 
 describe('request logger middleware', () => {
-
   it('should have an start log for a request', (done) => {
     ringbuffer.records = [];
     const app: Application = express();
@@ -41,7 +40,7 @@ describe('request logger middleware', () => {
       .then(() => {
         expect(ringbuffer.records).toBeDefined();
         expect(ringbuffer.records.length).toBeGreaterThanOrEqual(2);
-        expect(ringbuffer.records[0][msg]).toBe('[START]')
+        expect(ringbuffer.records[0][msg]).toBe('[START]');
         done();
       });
   });
@@ -50,12 +49,14 @@ describe('request logger middleware', () => {
     ringbuffer.records = [];
     const app: Application = express();
     app.use(BunyanMiddleware(mockedBunyan));
-    app.use(bffRequestLoggerMiddleware({
-      messages : {
-        beforeMessage: 'b4',
-        afterMessage: 'after',
-      }
-    }));
+    app.use(
+      bffRequestLoggerMiddleware({
+        messages: {
+          beforeMessage: 'b4',
+          afterMessage: 'after',
+        },
+      }),
+    );
     app.get('/', responseHandler);
     supertest(app)
       .get('/')
@@ -63,8 +64,8 @@ describe('request logger middleware', () => {
       .then(() => {
         expect(ringbuffer.records).toBeDefined();
         expect(ringbuffer.records.length).toBe(2);
-        expect(ringbuffer.records[0][msg]).toBe('b4')
-        expect(ringbuffer.records[1][msg]).toBe('after')
+        expect(ringbuffer.records[0][msg]).toBe('b4');
+        expect(ringbuffer.records[1][msg]).toBe('after');
         done();
       });
   });
@@ -73,9 +74,11 @@ describe('request logger middleware', () => {
     ringbuffer.records = [];
     const app: Application = express();
     app.use(BunyanMiddleware(mockedBunyan));
-    app.use(bffRequestLoggerMiddleware({
-      excludeRequestUri: ['/health']
-    }));
+    app.use(
+      bffRequestLoggerMiddleware({
+        excludeRequestUri: ['/health'],
+      }),
+    );
     app.get('/health', responseHandler);
     supertest(app)
       .get('/health')
@@ -91,10 +94,12 @@ describe('request logger middleware', () => {
     ringbuffer.records = [];
     const app: Application = express();
     app.use(BunyanMiddleware(mockedBunyan));
-    app.use(bffRequestLoggerMiddleware({
-      excludeRequestUri: ['/health'],
-      includeRequestUri: ['/health'],
-    }));
+    app.use(
+      bffRequestLoggerMiddleware({
+        excludeRequestUri: ['/health'],
+        includeRequestUri: ['/health'],
+      }),
+    );
     app.get('/health', responseHandler);
     supertest(app)
       .get('/health')
@@ -102,7 +107,7 @@ describe('request logger middleware', () => {
       .then(() => {
         expect(ringbuffer.records).toBeDefined();
         expect(ringbuffer.records.length).toBe(2);
-        expect(ringbuffer.records[0][msg]).toBe('[START]')
+        expect(ringbuffer.records[0][msg]).toBe('[START]');
         done();
       });
   });
@@ -111,9 +116,11 @@ describe('request logger middleware', () => {
     ringbuffer.records = [];
     const app: Application = express();
     app.use(BunyanMiddleware(mockedBunyan));
-    app.use(bffRequestLoggerMiddleware({
-      excludeRequestUri: ['/health'],
-    }));
+    app.use(
+      bffRequestLoggerMiddleware({
+        excludeRequestUri: ['/health'],
+      }),
+    );
     app.get('/health/somethingelse', responseHandler);
     supertest(app)
       .get('/health/somethingelse')
@@ -126,12 +133,13 @@ describe('request logger middleware', () => {
   });
 
   it('should consider only included url', (done) => {
-
     const app: Application = express();
     app.use(BunyanMiddleware(mockedBunyan));
-    app.use(bffRequestLoggerMiddleware({
-      includeRequestUri: ['/health'],
-    }));
+    app.use(
+      bffRequestLoggerMiddleware({
+        includeRequestUri: ['/health'],
+      }),
+    );
     app.get('/somethingelse', responseHandler);
     supertest(app)
       .get('/somethingelse')
@@ -142,5 +150,4 @@ describe('request logger middleware', () => {
         done();
       });
   });
-
 });

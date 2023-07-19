@@ -1,4 +1,4 @@
 export interface ExternalResource {
-  id: number
-  description: string
+  id: number;
+  description: string;
 }
