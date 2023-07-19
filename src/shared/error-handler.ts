@@ -1,4 +1,3 @@
-import * as newrelic from 'newrelic';
 import { logger } from './logger';
 
 /**

@@ -17,6 +17,7 @@ export const bffHttpAxiosClientOptions: HttpAxiosClientOptions = {
 function responseErrorInterceptor(error: AxiosError) {
   const response = error.response;
   if (response) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data: any = response.data;
     const messageStr: string = data?.message;
     const message = messageStr ?? 'Unexpected error while calling external service';

@@ -12,6 +12,7 @@ export class ApiError extends Error {
   }
 
   public static fromError(error: Error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { response } = error as any;
     const httpStatus = response ? response.status : 500;
     const httpMessage = response ? response.statusText : error.message;

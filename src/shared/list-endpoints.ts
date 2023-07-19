@@ -1,4 +1,4 @@
-/* eslint no-console: "off" */
+/* eslint-disable @typescript-eslint/no-explicit-any, no-console*/
 import express = require('express');
 
 export function listEndpoints(expressApp: express.Application) {
