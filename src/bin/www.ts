@@ -23,6 +23,7 @@ function normalizePort(portArg: string): boolean | number {
   return parsed > 0 ? parsed : false;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function onError(error: any) {
   if (error.syscall !== 'listen') {
     throw error;

@@ -8,4 +8,3 @@ export interface HttpRequestLoggerOptions {
   includeRequestUri?: string[];
   messages?: RequestLoggerMessagesOptions;
 }
-

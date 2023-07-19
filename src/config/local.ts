@@ -11,7 +11,7 @@ export default {
   endpoints: {
     externalResources: {
       url: 'https://mock-api.mx',
-      timeout: 500
-    }
+      timeout: 500,
+    },
   },
 } as AppConfig;

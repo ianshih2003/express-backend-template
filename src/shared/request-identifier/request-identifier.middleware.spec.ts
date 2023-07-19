@@ -16,7 +16,7 @@ describe('request identifier middleware', () => {
     supertest(app)
       .get('/')
       .expect(200)
-      .then(res => {
+      .then((res) => {
         expect(res.body.id).toBeDefined();
         done();
       });
@@ -32,7 +32,7 @@ describe('request identifier middleware', () => {
       .get('/')
       .set('X-justo-Requestid', id)
       .expect(200)
-      .then(res => {
+      .then((res) => {
         expect(res.body.id).toBe(id);
         done();
       });

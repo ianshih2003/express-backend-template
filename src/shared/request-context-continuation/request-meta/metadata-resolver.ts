@@ -7,7 +7,11 @@ export const requestMetadata: RequestMetadataResolver = (req) => {
   const cookies = req.cookies || {};
   const headers = req.headers || {};
   const appClient = headers['android-app'] ? 'android' : headers['ios-app'] ? 'ios' : 'web';
-  const appVersion = headers['android-app'] ? headers['android-app'] : headers['ios-app'] ? headers['ios-app'] : 'web';
+  const appVersion = headers['android-app']
+    ? headers['android-app']
+    : headers['ios-app']
+    ? headers['ios-app']
+    : 'web';
 
   const authorization: string = 'authorization';
   const mapper = new HeaderMapper();

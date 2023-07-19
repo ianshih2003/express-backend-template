@@ -20,7 +20,7 @@ export class AxiosCompaniesClient implements ResourcesClient {
   }
 
   async getExternalResources(): Promise<HttpResponse<ExternalResource[]>> {
-    const response: AxiosResponse = await this.baseConnector.get(`/external-resources`);
+    const response: AxiosResponse = await this.baseConnector.get('/external-resources');
     return axiosResponseConverter(response);
   }
 }

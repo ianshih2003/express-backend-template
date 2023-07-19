@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any*/
+
 export type Assert<T> = (obj: T | null) => void | never;
 
 export const isNothing = (a: any) => a === null || a === undefined;

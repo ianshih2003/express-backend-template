@@ -1,7 +1,12 @@
 import config from '@config';
 import { logger } from './logger';
 import { HttpAxiosClientOptions } from '@shared/http-client/http-client';
-import Axios, { AxiosError, AxiosRequestConfig, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
+import Axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  CreateAxiosDefaults,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import { AppError } from '@shared/errors/index';
 import * as AxiosLogger from 'axios-logger';
 
@@ -12,6 +17,7 @@ export const bffHttpAxiosClientOptions: HttpAxiosClientOptions = {
 function responseErrorInterceptor(error: AxiosError) {
   const response = error.response;
   if (response) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data: any = response.data;
     const messageStr: string = data?.message;
     const message = messageStr ?? 'Unexpected error while calling external service';
@@ -28,7 +34,6 @@ export function createConnector(axiosConfig: CreateAxiosDefaults) {
   return connector;
 }
 
-
 function requestLoggerWrapper(r: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
-    return AxiosLogger.requestLogger(r as AxiosRequestConfig) as InternalAxiosRequestConfig
+  return AxiosLogger.requestLogger(r as AxiosRequestConfig) as InternalAxiosRequestConfig;
 }

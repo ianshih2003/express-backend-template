@@ -9,14 +9,13 @@ export interface AppConfig {
     httpClientConfig: { useLogger: boolean };
     requestLogger?: HttpRequestLoggerOptions;
     logstash?: LogstashConfig;
-
   };
   newrelic?: {
     license: string;
-  },
+  };
   endpoints: {
     externalResources: Endpoint;
-  }
+  };
 }
 
 export interface SqsConfiguration {
@@ -26,5 +25,6 @@ export interface SqsConfiguration {
 }
 
 const env = getEnvironment();
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const config = require(`./${env.toLowerCase()}`).default as AppConfig;
 export default config;

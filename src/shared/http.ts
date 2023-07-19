@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any*/
 import { URL } from 'url';
 
 export interface HttpRequest {

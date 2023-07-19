@@ -36,7 +36,7 @@ export class HeaderMapper {
       this.mappers.push(mapperOrTarget);
     } else {
       console.log(mapperOrTarget, sources);
-      throw new Error(`Cannot register mapper, incorrect parameters`);
+      throw new Error('Cannot register mapper, incorrect parameters');
     }
   }
 
@@ -58,7 +58,7 @@ export class HeaderMapper {
       if (Array.isArray(sources)) {
         // more than one sources are specified,
         // take the first valid source
-        value = sources.find(value => !!value);
+        value = sources.find((value) => !!value);
       } else {
         // only one source was specified, use its value
         value = sources;
@@ -77,7 +77,7 @@ export class HeaderMapper {
       return meta;
     }, result);
 
-    const lowerCaseHeaders = Object.keys(mappedHeaders).map(header => header.toLowerCase());
+    const lowerCaseHeaders = Object.keys(mappedHeaders).map((header) => header.toLowerCase());
 
     for (const entry of Object.entries(this.headersToForward)) {
       if (!lowerCaseHeaders.includes(entry[0])) {

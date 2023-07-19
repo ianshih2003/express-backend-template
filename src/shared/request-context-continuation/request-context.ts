@@ -19,7 +19,6 @@ export function createContinuationContext() {
     namespace.bindEmitter(req);
     namespace.bindEmitter(res);
     namespace.run(() => {
-
       // TID
       let requestId = req.headers['X-justo-RequestId'] || req.id;
       if (!requestId) {
@@ -60,7 +59,6 @@ export class RequestContinuationContext {
   get getContext(): any {
     return this.context;
   }
-
 }
 
 export const requestContext = new RequestContinuationContext();

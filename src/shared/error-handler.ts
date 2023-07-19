@@ -1,4 +1,3 @@
-import * as newrelic from 'newrelic';
 import { logger } from './logger';
 
 /**
@@ -8,4 +7,3 @@ import { logger } from './logger';
 export function appErrorHandler(err: Error) {
   logger.error(err);
 }
-

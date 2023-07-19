@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 const debug = require('debug')('bff-core:errors:middleware');
 
@@ -22,6 +22,6 @@ export function errorHandlerMiddleware(options?: ErrorHandlerOptions) {
       options.handleError(err);
     }
     debug('Sending the error response');
-    res.status(err.httpStatus || 500).json({...err, message: err.message});
+    res.status(err.httpStatus || 500).json({ ...err, message: err.message });
   };
 }

@@ -4,7 +4,11 @@ import * as https from 'https';
 import * as bunyan from 'bunyan';
 import { AxiosInstance } from 'axios';
 
-import { LoggerOptions, requestLoggerInterceptor, responseLoggerInterceptor } from './interceptors/logger';
+import {
+  LoggerOptions,
+  requestLoggerInterceptor,
+  responseLoggerInterceptor,
+} from './interceptors/logger';
 import { requestHeadersInterceptor } from './interceptors/headers';
 
 const debug = require('debug')('bff-core:utils:http-client');
