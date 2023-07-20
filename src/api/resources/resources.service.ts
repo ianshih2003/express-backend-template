@@ -1,12 +1,16 @@
 import { externalResourcesClient, ResourcesClient } from './client';
 import { Resource } from '@domain/resource';
 
-export class ResourcesService {
-  constructor(readonly client: ResourcesClient) {}
+export interface IResourceService {
+  getResources(): Promise<Resource[]>
+}
+
+export class ResourcesService implements IResourceService {
+  constructor(readonly client: ResourcesClient) { }
 
   async getResources(): Promise<Resource[]> {
     const { data } = await this.client.getExternalResources();
-    return data.map((resource) => new Resource(resource.id, resource.description));
+    return data.map(({ id, description }) => new Resource(id, description));
   }
 }
 

@@ -1,8 +1,13 @@
-import { getResources } from './resources.controller';
+import {
+    ResourceController
+} from './resources.controller';
+
 import { Router } from 'express';
 
-const resourcesRouter: Router = Router();
+const RESOURCE_PATH = '/resources'
 
-resourcesRouter.get('/resources', getResources);
-
-export default resourcesRouter;
+export default function getRouter(controller = new ResourceController()): Router {
+    const resourcesRouter: Router = Router();
+    resourcesRouter.get(RESOURCE_PATH, (req, res, next) => controller.getResources(req, res, next));
+    return resourcesRouter;
+}
