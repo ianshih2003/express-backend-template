@@ -27,12 +27,12 @@ describe("resources.service.ts", () => {
     });
 
     it("when call client and return not empty result then should map result", async () => {
-        const id = 'd';
-        const description = 'd';
+        const id = 'id';
+        const description = 'description';
 
         const externalResponseBody = {
-            description: id,
-            id: description
+            description: description,
+            id: id
         };
         const externalResponse: HttpResponse = {
             data: [externalResponseBody],
@@ -40,8 +40,8 @@ describe("resources.service.ts", () => {
             headers: {},
         }
         const expected = {
-            description: id,
-            id: description,
+            description: description,
+            id: id,
             foo: id.concat(description)
         };
         getExternalResourcesFn.mockResolvedValueOnce(externalResponse);
