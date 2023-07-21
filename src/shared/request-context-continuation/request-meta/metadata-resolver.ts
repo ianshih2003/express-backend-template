@@ -4,17 +4,19 @@ import { ClientAppNameReader } from './sources/app-name';
 import { UserIdResolverInstance } from './sources/user-id';
 
 export const requestMetadata: RequestMetadataResolver = (req) => {
+
+  const platformHeader = 'x-justo-platform';
+  const platformVersionHeader = 'x-justo-platformversion';
   const cookies = req.cookies || {};
   const headers = req.headers || {};
-  const appClient = headers['android-app'] ? 'android' : headers['ios-app'] ? 'ios' : 'web';
-  const appVersion = headers['android-app']
-    ? headers['android-app']
-    : headers['ios-app']
-    ? headers['ios-app']
-    : 'web';
+  const platform = headers[platformHeader] ? headers[platformHeader] : 'unknown';
+  const appVersion = headers[platformVersionHeader] ? headers[platformVersionHeader] : 'unknown';
 
   const authorization: string = 'authorization';
   const mapper = new HeaderMapper();
+
+  console.log(headers)
+  console.log(platform + '   ' + appVersion)
 
   mapper.registerMapper('Authorization', headers[authorization]);
 
@@ -28,9 +30,9 @@ export const requestMetadata: RequestMetadataResolver = (req) => {
 
   mapper.registerMapper('X-justo-User-Agent', headers['User-Agent']);
 
-  mapper.registerMapper('X-justo-appClient', appClient);
+  mapper.registerMapper('X-justo-Platform', platform);
 
-  mapper.registerMapper('X-justo-appVersion', appVersion);
+  mapper.registerMapper('X-justo-PlatformVersion', appVersion);
 
   mapper.registerMapper('X-justo-ClientAppName', ClientAppNameReader.appName);
 

@@ -51,7 +51,8 @@ describe('request context', () => {
     supertest(app)
       .get('/info/meta')
       .set('Accept', 'application/json')
-      .set('ios-app', '1.0.0')
+      .set('X-justo-Platform', 'ios-app')
+      .set('X-justo-PlatformVersion', '1.0.0')
       .set('X-justo-RequestId', 'my-request-id')
       .set('X-justo-random', 'random')
       .expect(200)
@@ -60,8 +61,8 @@ describe('request context', () => {
           'X-justo-RequestId': 'my-request-id',
           'X-justo-ClientAppName': ClientAppNameReader.appName,
           'x-justo-random': 'random',
-          'X-justo-appClient': 'ios',
-          'X-justo-appVersion': '1.0.0',
+          'X-justo-Platform': 'ios-app',
+          'X-justo-PlatformVersion': '1.0.0',
         });
         done();
       });
@@ -71,7 +72,6 @@ describe('request context', () => {
     supertest(app)
       .get('/async')
       .set('Accept', 'application/json')
-      .set('android-app', '1.0.0')
       .set('X-justo-RequestId', 'my-request-id')
       .set('X-justo-random', 'random')
       .expect(200)
@@ -80,9 +80,9 @@ describe('request context', () => {
           tid: 'my-request-id',
           meta: {
             'X-justo-RequestId': 'my-request-id',
-            'X-justo-appClient': 'android',
             'x-justo-random': 'random',
-            'X-justo-appVersion': '1.0.0',
+            'X-justo-Platform': 'unknown',
+            'X-justo-PlatformVersion': 'unknown',
             'X-justo-ClientAppName': ClientAppNameReader.appName,
           },
         });
