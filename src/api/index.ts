@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import resourcesRouter from './resources/resources.router';
+import { listEndpoints } from '@shared/list-endpoints';
 
 const api: express.Application = express();
 
@@ -14,5 +15,7 @@ api.use(cors());
 api.use(bodyParser.json({ limit: '15mb' }));
 api.use(bodyParser.urlencoded({ extended: true }));
 api.use(resourcesRouter);
+
+listEndpoints(api);
 
 export default api;

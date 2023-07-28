@@ -15,9 +15,6 @@ export const requestMetadata: RequestMetadataResolver = (req) => {
   const authorization: string = 'authorization';
   const mapper = new HeaderMapper();
 
-  console.log(headers)
-  console.log(platform + '   ' + appVersion)
-
   mapper.registerMapper('Authorization', headers[authorization]);
 
   mapper.registerMapper('X-justo-RealIP', [

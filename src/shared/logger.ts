@@ -3,7 +3,7 @@ import { LoggerBuilder } from '@shared/bunyan-logger-builder';
 import config from '@config';
 
 // TODO: FIXME get this from config
-let loggerBuilder = new LoggerBuilder('{{template}}');
+let loggerBuilder = new LoggerBuilder(config.logger.name);
 
 if (config.logger.console) {
   loggerBuilder = loggerBuilder.addStdoutStream('debug');

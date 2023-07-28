@@ -4,6 +4,8 @@ export default {
   logger: {
     console: true,
     httpClientConfig: { useLogger: true },
+    level: 'trace',
+    name: 'nodejs-template-back'
   },
   newrelic: {
     license: '',

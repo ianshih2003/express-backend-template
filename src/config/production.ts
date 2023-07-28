@@ -3,6 +3,7 @@ import { AppConfig } from './index';
 export default {
   logger: {
     console: false,
+    name: 'nodejs-template-back',
     logstash: {
       appName: 'nodejs-backend-template',
       host: 'logstash.justo.it',

@@ -11,6 +11,8 @@ export function listEndpoints(expressApp: express.Application) {
       }
     } else if (middleware.name === 'router') {
       middleware.handle.stack.forEach((handler: any) => {
+        console.log(middleware.route)
+        console.log(middleware.route.path)
         if (handler.route.path) {
           console.log(handler.route.path);
         }
