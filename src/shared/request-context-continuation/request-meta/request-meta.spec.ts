@@ -18,9 +18,9 @@ describe('metadata resolver', () => {
   it('should resolve all default values', () => {
     const request = new MockExpressRequest();
     expect(requestMetadata(request)).toEqual({
-        "X-justo-ClientAppName": ClientAppNameReader.appName,
-        "X-justo-Platform": "unknown",
-        "X-justo-PlatformVersion": "unknown",
+      'X-justo-ClientAppName': ClientAppNameReader.appName,
+      'X-justo-Platform': 'unknown',
+      'X-justo-PlatformVersion': 'unknown',
     });
   });
 
@@ -39,9 +39,9 @@ describe('metadata resolver', () => {
     expect(requestMetadata(request)).toEqual({
       'Authorization':
         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJqdGkiOjEyMzQ1Nn0.mjyN0XVQsSnCMBehEhq2fjwI7N7VRgaP2JKkb0cRkZs',
-        'X-justo-ClientAppName': ClientAppNameReader.appName,
-        'X-justo-Platform': 'unknown',
-        'X-justo-PlatformVersion': 'unknown',
+      'X-justo-ClientAppName': ClientAppNameReader.appName,
+      'X-justo-Platform': 'unknown',
+      'X-justo-PlatformVersion': 'unknown',
     });
   });
 

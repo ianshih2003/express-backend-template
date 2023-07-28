@@ -1,5 +1,6 @@
-import * as express from 'express';
-import * as cookieParser from 'cookie-parser';
+import * as apm from '@shared/apm-elk';
+import express from 'express';
+import cookieParser from 'cookie-parser';
 import { BunyanMiddleware as bunyanMiddleware } from '@shared/bunyan-middleware';
 import { appErrorHandler } from '@shared/error-handler';
 import { health, requestLogger } from '@middlewares';
@@ -14,6 +15,8 @@ import { bffRequestIdentifier } from '@shared/request-identifier';
 import { fourOFourMiddleware } from '@shared/404';
 import { errorHandlerMiddleware } from '@shared/errors';
 import { listEndpoints } from '@shared/list-endpoints';
+
+apm.start();
 
 const environment = getEnvironment();
 const basePath = '/api';
@@ -46,6 +49,6 @@ server.use(
   }),
 );
 
-listEndpoints(api);
+listEndpoints(api, basePath);
 
 export default server;

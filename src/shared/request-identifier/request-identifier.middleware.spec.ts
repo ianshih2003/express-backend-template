@@ -1,7 +1,7 @@
-import * as express from 'express';
+import express from 'express';
 import { Application } from 'express';
 import { bffRequestIdentifier } from './request-identifier.middleware';
-import * as supertest from 'supertest';
+import supertest from 'supertest';
 import { v4 } from 'uuid';
 
 const responseHandler = (req: express.Request, res: express.Response) => {

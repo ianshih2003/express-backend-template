@@ -9,9 +9,7 @@ export interface AppConfig {
     httpClientConfig: { useLogger: boolean };
     requestLogger?: HttpRequestLoggerOptions;
     logstash?: LogstashConfig;
-  };
-  newrelic?: {
-    license: string;
+    name: string;
   };
   endpoints: {
     externalResources: Endpoint;

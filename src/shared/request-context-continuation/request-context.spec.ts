@@ -1,5 +1,5 @@
-import * as supertest from 'supertest';
-import * as express from 'express';
+import supertest from 'supertest';
+import express from 'express';
 import { Request } from 'express';
 import { createContinuationContext, requestContext } from './request-context';
 import { bffRequestIdentifier } from '../request-identifier';

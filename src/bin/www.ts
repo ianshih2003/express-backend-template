@@ -6,10 +6,6 @@ import server from './server';
 
 const env = getEnvironment();
 
-if (env !== 'local') {
-  require('newrelic');
-}
-
 const port = normalizePort(process.env.PORT || '8080');
 
 const httpServer = http.createServer(server);
