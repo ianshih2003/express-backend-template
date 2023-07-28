@@ -1,5 +1,3 @@
-import { logger} from '@shared/logger';
-
 const APM = require('elastic-apm-node');
 
 export function start() {
