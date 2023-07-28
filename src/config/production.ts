@@ -15,9 +15,6 @@ export default {
       excludeRequestUri: ['/nodejs-backend-template/health'],
     },
   },
-  newrelic: {
-    license: '',
-  },
   endpoints: {
     externalResources: {
       url: 'https://mock-api.mx',

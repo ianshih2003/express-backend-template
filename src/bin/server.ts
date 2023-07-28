@@ -1,6 +1,6 @@
-import * as apm from '@shared/apm-elk'
-import * as express from 'express';
-import * as cookieParser from 'cookie-parser';
+import * as apm from '@shared/apm-elk';
+import express from 'express';
+import cookieParser from 'cookie-parser';
 import { BunyanMiddleware as bunyanMiddleware } from '@shared/bunyan-middleware';
 import { appErrorHandler } from '@shared/error-handler';
 import { health, requestLogger } from '@middlewares';
@@ -48,5 +48,7 @@ server.use(
     handleError: appErrorHandler,
   }),
 );
+
+listEndpoints(api, basePath);
 
 export default server;

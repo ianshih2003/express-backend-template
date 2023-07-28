@@ -4,7 +4,6 @@ import { ClientAppNameReader } from './sources/app-name';
 import { UserIdResolverInstance } from './sources/user-id';
 
 export const requestMetadata: RequestMetadataResolver = (req) => {
-
   const platformHeader = 'x-justo-platform';
   const platformVersionHeader = 'x-justo-platformversion';
   const cookies = req.cookies || {};

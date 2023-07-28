@@ -2,11 +2,11 @@ import { externalResourcesClient, ResourcesClient } from './client';
 import { Resource } from '@domain/resource';
 
 export interface IResourceService {
-  getResources(): Promise<Resource[]>
+  getResources(): Promise<Resource[]>;
 }
 
 export class ResourcesService implements IResourceService {
-  constructor(readonly client: ResourcesClient) { }
+  constructor(readonly client: ResourcesClient) {}
 
   async getResources(): Promise<Resource[]> {
     const { data } = await this.client.getExternalResources();

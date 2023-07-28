@@ -1,4 +1,4 @@
-const APM = require('elastic-apm-node');
+import APM from 'elastic-apm-node';
 
 export function start() {
   if (process.env.ELASTIC_APM_ENABLED) {
@@ -7,12 +7,11 @@ export function start() {
       : APM.start({
           serviceName: 'nodejs-backend-template',
           secretToken: process.env.ELASTIC_APM_SECURE_TOKEN,
-          serverUrl:   'https://apm.justo.mx',
+          serverUrl: 'https://apm.justo.mx',
           environment: process.env.ELASTIC_APM_ENVIRONMENT || 'staging',
-          logLevel:    'info',
-          captureExceptions:     true,
+          logLevel: 'info',
+          captureExceptions: true,
           logUncaughtExceptions: true,
-          // logger:                logger
         });
   }
 }

@@ -5,10 +5,7 @@ export default {
     console: true,
     httpClientConfig: { useLogger: true },
     level: 'trace',
-    name: 'nodejs-template-back'
-  },
-  newrelic: {
-    license: '',
+    name: 'nodejs-template-backend',
   },
   endpoints: {
     externalResources: {
