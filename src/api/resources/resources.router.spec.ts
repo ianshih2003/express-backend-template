@@ -1,5 +1,5 @@
-import * as supertest from 'supertest';
-import * as express from 'express';
+import supertest from 'supertest';
+import express from 'express';
 import getRouter from './resources.router';
 import { ResourceController } from './resources.controller';
 import { IResourceService } from './resources.service';

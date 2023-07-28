@@ -1,8 +1,8 @@
-import * as express from 'express';
+import express from 'express';
 import { Application } from 'express';
 import { BunyanMiddleware } from '../bunyan-middleware';
-import * as supertest from 'supertest';
-import * as bunyan from 'bunyan';
+import supertest from 'supertest';
+import bunyan from 'bunyan';
 import { bffRequestLoggerMiddleware } from './request-logger-middleware';
 
 const msg: string = 'msg';
