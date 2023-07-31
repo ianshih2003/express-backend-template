@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "start:dev": "npm run build && concurrently \"npm run build:watch\" \"node --watch build/src/bin/www.js\"",
+    "start:dev2": "npm run build && node --watch \"build/src/bin/www.js\"",
     "build": "tsc -p tsconfig.json && tsconfig-replace-paths -p tsconfig.json",
     "build:watch": "tsc -p tsconfig.json && tsconfig-replace-paths -p tsconfig.json",
     "test": "jest --config jest.config.js --coverage",
     "lint": "eslint src/**/*.ts",
     "format": "prettier src/**/*.ts --write .",
-    "start": "node build/src/bin/www.js"
+    "start": "node build/src/bin/www.js",
+    "postinstall": "yarn husky install"
   },
   "dependencies": {
     "axios": "~1.4.0",
@@ -45,9 +47,13 @@
     "@types/supertest": "^2.0.12",
     "@types/uuid": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.2.0",
     "concurrently": "^8.2.0",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.28.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "husky": "~8.0.3",
     "jest": "~29.6.1",
     "jest-sonar-reporter": "~b2.0.0",
