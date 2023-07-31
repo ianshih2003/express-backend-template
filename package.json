@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start:dev": "npm run build && concurrently \"npm run build:watch\" \"node --watch build/src/bin/www.js\"",
-    "start:dev2": "npm run build && node --watch \"build/src/bin/www.js\"",
+    "start:dev": "npm run build && node --watch \"build/src/bin/www.js\"",
     "build": "tsc -p tsconfig.json && tsconfig-replace-paths -p tsconfig.json",
     "build:watch": "tsc -p tsconfig.json && tsconfig-replace-paths -p tsconfig.json",
     "test": "jest --config jest.config.js --coverage",
