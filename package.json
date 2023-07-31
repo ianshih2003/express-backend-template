@@ -1,0 +1,98 @@
+{
+  "name": "nodejs-backend-template",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start:dev": "npm run build && node --watch \"build/src/bin/www.js\"",
+    "build": "tsc -p tsconfig.json && tsconfig-replace-paths -p tsconfig.json",
+    "build:watch": "tsc -p tsconfig.json && tsconfig-replace-paths -p tsconfig.json",
+    "test": "jest --config jest.config.js --coverage",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier src/**/*.ts --write .",
+    "start": "node build/src/bin/www.js",
+    "postinstall": "yarn husky install"
+  },
+  "dependencies": {
+    "axios": "~1.4.0",
+    "axios-logger": "^2.6.2",
+    "body-parser": "~1.20.2",
+    "bunyan": "~1.8.15",
+    "cls-hooked": "^4.2.2",
+    "cookie": "^0.5.0",
+    "cookie-parser": "~1.4.6",
+    "core-js": "^3.31.1",
+    "cors": "~2.8.5",
+    "elastic-apm-node": "^3.48.0",
+    "express": "~4.18.2",
+    "express-healthcheck": "~0.1.0",
+    "express-list-routes": "^1.1.5",
+    "method-override": "~3.0.0",
+    "reflect-metadata": "^0.1.13",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "~17.6.6",
+    "@commitlint/config-conventional": "~17.6.6",
+    "@types/body-parser": "~1.19.2",
+    "@types/bunyan": "~1.8.8",
+    "@types/cls-hooked": "^4.3.4",
+    "@types/cookie": "^0.5.1",
+    "@types/cookie-parser": "~1.4.3",
+    "@types/cors": "~2.8.13",
+    "@types/express": "~4.17.17",
+    "@types/jest": "~29.5.3",
+    "@types/method-override": "~0.0.32",
+    "@types/node": "^18.16.19",
+    "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "concurrently": "^8.2.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.28.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "husky": "~8.0.3",
+    "jest": "~29.6.1",
+    "jest-sonar-reporter": "~b2.0.0",
+    "lint-staged": "~13.2.3",
+    "mock-express-request": "~0.2.2",
+    "nock": "^13.3.2",
+    "prettier": "~3.0.0",
+    "standard-version": "~9.5.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "~29.1.1",
+    "tsconfig-replace-paths": "~0.0.14",
+    "typescript": "~5.1.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -e"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "jestSonar": {
+    "reportPath": "coverage"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "schematicsVersion": "3.0.0",
+  "engines": {
+    "node": ">=18"
+  }
+}
