@@ -10,24 +10,24 @@ export interface ICustomersService {
 export const ExampleCustomerOrders = [
   new CustomerOrder(1, 1, new Date('2020-01-01'), 'rappi', [
     {
-      sku: '123',
-      quantity: 1,
+      sku:      '123',
+      quantity: 1
     },
     {
-      sku: '456',
-      quantity: 2,
-    },
+      sku:      '456',
+      quantity: 2
+    }
   ]),
   new CustomerOrder(2, 2, new Date('2021-01-01'), 'web', [
     {
-      sku: '789',
-      quantity: 3,
+      sku:      '789',
+      quantity: 3
     },
     {
-      sku: '11524',
-      quantity: 2,
-    },
-  ]),
+      sku:      '11524',
+      quantity: 2
+    }
+  ])
 ];
 
 export class CustomerOrdersService implements ICustomersService {
@@ -48,7 +48,7 @@ export class CustomerOrdersService implements ICustomersService {
 
     return Promise.resolve({
       ...customerOrderToUpdate,
-      ...customerOrder,
+      ...customerOrder
     });
   }
 }
