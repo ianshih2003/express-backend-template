@@ -140,7 +140,6 @@
     "no-delete-var": "error",
     "no-shadow-restricted-names": "error",
     "capitalized-comments": "off",
-    "comma-dangle": "warn",
     "no-whitespace-before-property": "error",
     "block-spacing": 2,
     "space-before-blocks": 2,

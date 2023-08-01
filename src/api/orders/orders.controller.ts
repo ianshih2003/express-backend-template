@@ -1,23 +1,23 @@
 import { ApiError } from '@shared/api-error';
 import { NextFunction, Request, Response } from 'express';
-import { ICustomersService, ordersService as defaultOrderService } from './customer-orders.service';
+import { IOrderService, ordersService as defaultOrderService } from './orders.service';
 
-export class CustomerOrdersController {
-  constructor(private readonly ordersService: ICustomersService = defaultOrderService) {}
+export class OrderController {
+  constructor(private readonly orderService: IOrderService = defaultOrderService) {}
 
   async createOrder(req: Request, res: Response, next: NextFunction) {
     try {
-      const resources = await this.ordersService.create(req.body);
-      return res.json(resources);
+      const order = await this.orderService.create(req.body);
+      return res.json(order);
     } catch (error) {
       next(ApiError.fromError(error));
     }
   }
 
-  async getOrders(req: Request, res: Response, next: NextFunction) {
+  async getOrders(_req: Request, res: Response, next: NextFunction) {
     try {
-      const resources = await this.ordersService.find();
-      return res.json(resources);
+      const orders = await this.orderService.find();
+      return res.json(orders);
     } catch (error) {
       next(ApiError.fromError(error));
     }
@@ -27,8 +27,8 @@ export class CustomerOrdersController {
     try {
       const id = parseInt(req.params.id);
 
-      const resources = await this.ordersService.findOne(id);
-      return res.json(resources);
+      const order = await this.orderService.findOne(id);
+      return res.json(order);
     } catch (error) {
       next(ApiError.fromError(error));
     }
@@ -37,8 +37,8 @@ export class CustomerOrdersController {
   async updateOrder(req: Request, res: Response, next: NextFunction) {
     try {
       const id = parseInt(req.params.id);
-      const resources = await this.ordersService.update(id, req.body);
-      return res.json(resources);
+      const order = await this.orderService.update(id, req.body);
+      return res.json(order);
     } catch (error) {
       next(ApiError.fromError(error));
     }

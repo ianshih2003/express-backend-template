@@ -1,4 +1,4 @@
-import ordersRouter from '@api/customer-orders/customer-orders.router';
+import ordersRouter from '@api/orders/orders.router';
 import * as bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
